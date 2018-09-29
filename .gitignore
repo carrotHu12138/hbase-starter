@@ -5,3 +5,14 @@ target
 **/part-*
 **/_SUCCESS
 **/.*.crc
+
+// idea
+.idea
+*.iml
+*.ipr
+*.iws
+*.fpr
+
+**/.idea/
+
+
