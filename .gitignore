@@ -7,7 +7,7 @@ target
 **/.*.crc
 
 // idea
-.idea
+.idea/
 *.iml
 *.ipr
 *.iws
