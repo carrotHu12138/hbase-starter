@@ -1,7 +1,5 @@
 package HBaseIA.TwitBase;
 
-import com.google.common.base.Joiner;
-
 import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.LongStream;
 
 import static java.lang.Thread.currentThread;
-import static java.util.Arrays.*;
+import static java.util.Arrays.copyOfRange;
 
 @SuppressWarnings("WeakerAccess")
 public class ForkJoinSumCalculator extends RecursiveTask<Long> {
@@ -38,6 +36,7 @@ public class ForkJoinSumCalculator extends RecursiveTask<Long> {
     private static String firstWorkerName;
     private static AtomicInteger invokeCount = new AtomicInteger();
     private static Map<String, AtomicInteger> workerCount = new ConcurrentHashMap<>();
+
     @Override
     protected Long compute() {
 
@@ -50,7 +49,7 @@ public class ForkJoinSumCalculator extends RecursiveTask<Long> {
         }
 
         // 工作线程调用计次
-        workerCount.computeIfAbsent(currentThread().getName(), key ->  new AtomicInteger())
+        workerCount.computeIfAbsent(currentThread().getName(), key -> new AtomicInteger())
                 .incrementAndGet();
 
         int length = end - start;
@@ -67,9 +66,9 @@ public class ForkJoinSumCalculator extends RecursiveTask<Long> {
 //        Long leftResult = leftTask.join();
 
         ForkJoinSumCalculator leftTask =
-                new ForkJoinSumCalculator(numbers, start, start + length/2);
+                new ForkJoinSumCalculator(numbers, start, start + length / 2);
         ForkJoinSumCalculator rightTask =
-                new ForkJoinSumCalculator(numbers, start + length/2, end);
+                new ForkJoinSumCalculator(numbers, start + length / 2, end);
 
         //invokeAll(leftTask, rightTask);
         leftTask.fork();
@@ -85,6 +84,7 @@ public class ForkJoinSumCalculator extends RecursiveTask<Long> {
     }
 
     private static final ForkJoinPool pool = new ForkJoinPool();
+
     public static void main(String[] args) {
 
 //        long[] numbers = LongStream.rangeClosed(0, 100_000_000).toArray();
@@ -96,7 +96,7 @@ public class ForkJoinSumCalculator extends RecursiveTask<Long> {
 //        System.out.println("**********");
 //        System.out.println(firstWorkerName);
 
-        long[] array = new long[]{3, 60, 61, 67, 68, 1, 2, 6, 7,8 , 9, 10};
+        long[] array = new long[]{3, 60, 61, 67, 68, 1, 2, 6, 7, 8, 9, 10};
 
 //        int lo = 0,hi = array.length - 1;
 //
@@ -121,9 +121,11 @@ public class ForkJoinSumCalculator extends RecursiveTask<Long> {
 
     }
 }
-interface Person<T>{
+
+interface Person<T> {
     T action();
 }
+
 class Student implements Person<String> {
 
     @Override

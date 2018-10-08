@@ -1,9 +1,9 @@
 package HBaseIA.TwitBase.coprocessors;
 
-import java.io.IOException;
-
 import org.apache.hadoop.hbase.ipc.CoprocessorProtocol;
 
+import java.io.IOException;
+
 public interface RelationCountProtocol extends CoprocessorProtocol {
-  public long followedByCount(String userId) throws IOException;
+    public long followedByCount(String userId) throws IOException;
 }
