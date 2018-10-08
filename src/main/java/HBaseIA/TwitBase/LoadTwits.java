@@ -2,6 +2,7 @@ package HBaseIA.TwitBase;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.RecursiveTask;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -66,6 +67,15 @@ public class LoadTwits {
     }
 
     pool.closeTablePool(UsersDAO.TABLE_NAME);
+
+    Object o = new RecursiveTask<Long>() {
+
+      @Override
+      protected Long compute() {
+        join();
+        return 1L;
+      }
+    };
   }
 
 }
